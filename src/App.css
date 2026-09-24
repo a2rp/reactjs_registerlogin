@@ -1,45 +1,71 @@
-* {
-  margin: 0;
+:root {
+  --ink: #102237;
+  --muted: #62738a;
+  --line: #d9e4ee;
+  --soft: #edf4f8;
+  --teal: #0b8587;
+  --teal-dark: #075c66;
+  --white: #fff;
+  --error: #b42318;
+  --success: #117a4b;
 }
-.outer {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: left;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #f5f9fc; color: var(--ink); }
+.app { min-height: 100vh; }
+.site-header {
+  align-items: center; background: rgba(245,249,252,.97); border-bottom: 1px solid var(--line); display: flex; height: 76px; justify-content: space-between; left: 0; padding: 0 5vw; position: fixed; right: 0; top: 0; z-index: 10;
 }
-
-.inner {
-  width: 550px;
-  margin: auto;
-  background-color: #fff;
-  box-shadow: 0 14px 80px rgba(34, 35, 58, 0.2);
-  padding: 40px, 55px, 45px, 55px;
-  border-radius: 15px;
-  transition: all 0.3s;
+.brand { align-items: center; display: inline-flex; gap: 11px; text-decoration: none; }
+.brand img { background: var(--white); border: 1px solid var(--line); border-radius: 10px; height: 42px; object-fit: contain; padding: 3px; width: 42px; }
+.brand span { display: grid; gap: 2px; }
+.brand small, .eyebrow { color: var(--teal-dark); font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.brand strong { color: var(--ink); font-size: .98rem; }
+.header-actions { align-items: center; display: flex; gap: 18px; }
+.header-actions > span { align-items: center; color: var(--muted); display: inline-flex; font-size: .82rem; gap: 7px; }
+.header-actions > a { align-items: center; border: 1px solid var(--line); border-radius: 9px; color: var(--ink); display: inline-flex; height: 36px; justify-content: center; text-decoration: none; transition: border-color 180ms ease, box-shadow 180ms ease; width: 36px; }
+.header-actions > a:hover, .header-actions > a:focus-visible { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(11,133,135,.12); }
+.auth-layout { align-items: center; display: grid; gap: 8vw; grid-template-columns: minmax(0,1fr) minmax(350px,460px); margin: 0 auto; max-width: 1240px; min-height: 780px; padding: 130px 5vw 90px; }
+.intro-panel h1 { font-size: clamp(3rem,6vw,5.8rem); letter-spacing: -.06em; line-height: 1.02; margin: 0; max-width: 680px; }
+.intro-text { color: var(--muted); font-size: 1.12rem; line-height: 1.8; margin: 25px 0 0; max-width: 560px; }
+.intro-points { border-top: 1px solid var(--line); display: grid; gap: 16px; margin-top: 38px; max-width: 500px; padding-top: 22px; }
+.intro-points span { align-items: center; color: var(--muted); display: flex; font-size: .92rem; gap: 10px; }
+.intro-points svg { color: var(--teal); }
+.auth-card { background: var(--white); border: 1px solid var(--line); border-radius: 23px; box-shadow: 0 20px 60px rgba(26,53,77,.13); padding: 32px; }
+.auth-form { display: grid; }
+.form-heading { margin-bottom: 24px; }
+.form-heading .eyebrow { margin: 17px 0 8px; }
+.form-heading h2, .success-panel h2 { font-size: 2rem; letter-spacing: -.04em; margin: 0; }
+.form-heading > p:last-child, .success-panel > p:not(.eyebrow) { color: var(--muted); line-height: 1.6; margin: 8px 0 0; }
+.form-icon { align-items: center; background: var(--soft); border-radius: 12px; color: var(--teal); display: inline-flex; height: 44px; justify-content: center; width: 44px; }
+.auth-form label { align-items: center; color: var(--ink); display: flex; font-size: .86rem; font-weight: 700; gap: 8px; margin: 14px 0 7px; }
+.auth-form label svg { color: var(--teal); }
+.auth-form input { background: #fbfdff; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); font-size: .95rem; outline: 0; padding: 13px 14px; transition: border-color 180ms ease, box-shadow 180ms ease; width: 100%; }
+.auth-form input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(11,133,135,.12); }
+.submit-button { align-items: center; background: var(--ink); border: 1px solid var(--ink); border-radius: 10px; color: var(--white); cursor: pointer; display: inline-flex; font-weight: 800; gap: 10px; justify-content: center; margin-top: 24px; padding: 13px 16px; transition: border-color 180ms ease, box-shadow 180ms ease; }
+.submit-button:hover, .submit-button:focus-visible { border-color: var(--teal); box-shadow: 0 10px 24px rgba(16,34,55,.18); }
+.switch-button { align-items: center; background: transparent; border: 0; color: var(--teal-dark); cursor: pointer; display: inline-flex; font-size: .85rem; font-weight: 800; gap: 8px; justify-content: center; margin-top: 18px; padding: 5px; }
+.switch-button:hover, .switch-button:focus-visible { text-shadow: 0 2px 10px rgba(11,133,135,.25); }
+.form-message { border-radius: 8px; font-size: .84rem; line-height: 1.5; margin: 16px 0 0; padding: 10px 12px; }
+.form-message.error { background: #fff1f0; color: var(--error); }
+.form-message.success { background: #effaf4; color: var(--success); }
+.success-panel { text-align: center; }
+.success-icon { color: var(--success); font-size: 3rem; }
+.success-panel .eyebrow { margin: 20px 0 8px; }
+.site-footer { align-items: center; background: var(--ink); color: #d6e3ef; display: flex; font-size: .84rem; justify-content: space-between; padding: 25px 5vw; }
+.site-footer a { color: var(--white); font-weight: 800; text-decoration: none; }
+@media (max-width: 850px) {
+  .auth-layout { gap: 42px; grid-template-columns: 1fr; padding-top: 125px; }
+  .intro-panel { max-width: 680px; }
 }
-
-.outer .form-control:focus {
-  border-color: #167bff;
-  box-shadow: none;
-}
-
-.outer h3 {
-  font-weight: bold;
-  text-align: center;
-  margin: 0;
-  line-height: 1;
-  padding-bottom: 20px;
-}
-label {
-  font-weight: 600;
-}
-
-.forgot-password,
-.forgot-password {
-  text-align: right;
-  font-size: 13px;
-  padding-top: 10px;
-  color: #7f7d7d;
-  margin: 0;
-  cursor: pointer;
+@media (max-width: 560px) {
+  .site-header { padding: 0 16px; }
+  .header-status { display: none !important; }
+  .brand small { font-size: .58rem; }
+  .brand strong { font-size: .88rem; }
+  .auth-layout { min-height: auto; padding: 120px 16px 70px; }
+  .intro-panel h1 { font-size: clamp(2.9rem, 15vw, 4.7rem); }
+  .intro-text { font-size: 1rem; }
+  .auth-card { padding: 23px 18px; }
+  .site-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
 }

@@ -1,81 +1,51 @@
-import React, {useState} from 'react'
-import {Alert} from 'react-bootstrap'
-import Login from "./Login"
+import { useState } from "react";
+import { FaArrowRight, FaEnvelope, FaLock, FaUser, FaUserPlus } from "react-icons/fa";
+import Login from "./Login";
 
-function Registration() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [flag, setFlag] = useState(false);
-    const [login, setLogin] = useState(true);
+const Registration = () => {
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [message, setMessage] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
 
-    function handleSubmit(e) {
-        e.preventDefault();
+  const updateField = (event) => {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+    setMessage("");
+  };
 
-        if (!name || !email || !password) {
-            setFlag(true);
-        }
-        else {
-            setFlag(false);
-            localStorage.setItem("Email",JSON.stringify(email));
-            localStorage.setItem("Password",JSON.stringify(password));
-
-            console.log("saved in local storage");
-            setLogin(!login);
-        }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.password) {
+      setMessage("Please complete all fields before registering.");
+      return;
     }
 
-    function handleClick () {
-        setLogin(!login);
-    }
+    localStorage.setItem("Name", JSON.stringify(form.name.trim()));
+    localStorage.setItem("Email", JSON.stringify(form.email.trim()));
+    localStorage.setItem("Password", JSON.stringify(form.password));
+    setMessage("Registration saved in this browser.");
+    setForm({ name: "", email: "", password: "" });
+    setTimeout(() => setShowLogin(true), 450);
+  };
 
-    return (
-        <div className="p-4">
-        {login ? (
-        <form onSubmit={handleSubmit}>
-            <h3>Register</h3>
-            <div className="form-group">
-                <label htmlFor="">Name</label>
-                <input 
-                type="text" 
-                className="form-control" 
-                placeholder="enter full name" 
-                onChange={(event)=> setName(event.target.value)} 
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="">Email</label>
-                <input 
-                type="email" 
-                className="form-control" 
-                placeholder="enter email address" 
-                onChange={(event)=> setEmail(event.target.value)} 
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="">Password</label>
-                <input 
-                type="password" 
-                className="form-control" 
-                placeholder="enter password"
-                onChange={(event)=> setPassword(event.target.value)} 
-                />
-            </div>
-            <button type="submit" className="btn btn-dark btn-lg btn-block">Register</button>
-            <p className="forgot-password text-right" onClick={handleClick}>Already Registered {" "} login ???</p>
+  if (showLogin) {
+    return <Login onBack={() => setShowLogin(false)} />;
+  }
 
-            {flag && (
-                <Alert color="primary" variant="danger">
-                    please fill out your registration form
-                </Alert>
-            )}
-        </form>
-    ):(
-        <Login />
-    )}
+  return (
+    <form className="auth-form" onSubmit={handleSubmit}>
+      <div className="form-heading"><span className="form-icon"><FaUserPlus /></span><p className="eyebrow">Create an account</p><h2>Register</h2><p>Start with your name, email, and a password.</p></div>
+      <label htmlFor="name"><FaUser /> Full name</label>
+      <input id="name" name="name" type="text" value={form.name} placeholder="Enter your full name" onChange={updateField} />
+      <label htmlFor="email"><FaEnvelope /> Email address</label>
+      <input id="email" name="email" type="email" value={form.email} placeholder="Enter your email" onChange={updateField} />
+      <label htmlFor="password"><FaLock /> Password</label>
+      <input id="password" name="password" type="password" value={form.password} placeholder="Create a password" onChange={updateField} />
+      <button className="submit-button" type="submit">Register <FaArrowRight /></button>
+      {message && <p className={message.startsWith("Registration") ? "form-message success" : "form-message error"} role="alert">{message}</p>}
+      <button className="switch-button" type="button" onClick={() => setShowLogin(true)}>Already registered? Sign in</button>
+    </form>
+  );
+};
 
-        </div>
-    )
-}
-
-export default Registration
+export default Registration;

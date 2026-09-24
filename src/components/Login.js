@@ -1,66 +1,60 @@
-import React, {useState} from 'react'
-import { Alert } from 'react-bootstrap';
-import Home from "./Home"
+import { useState } from "react";
+import { FaArrowLeft, FaArrowRight, FaEnvelope, FaLock, FaSignInAlt } from "react-icons/fa";
+import Home from "./Home";
 
-function Login() {
-    const [emaillog,setEmaillog] = useState("");
-    const [passwordlog,setPasswordlog] = useState("");
-    const [flag,setFlag] = useState(false);
-    const [home, setHome] = useState(true);
+const readValue = (key) => {
+  const stored = localStorage.getItem(key);
+  if (!stored) return "";
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return stored;
+  }
+};
 
-    function handleLogin(event) {
-        event.preventDefault();
-        let email = localStorage.getItem("Email").replace(/"/g,"");
-        let pass = localStorage.getItem("Password").replace(/"/g,"");
+const Login = ({ onBack }) => {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
-        if (!emaillog || !passwordlog) {
-            setFlag(true);
-            console.log("Empty");
-        }
-        else if (passwordlog!==pass || emaillog!==email) {
-            setFlag(true);
-        }
-        else {
-            setHome(!home);
-            setFlag(false);
-        }
+  const updateField = (event) => {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+    setMessage("");
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const email = readValue("Email");
+    const password = readValue("Password");
+
+    if (!form.email.trim() || !form.password) {
+      setMessage("Enter both email and password.");
+      return;
     }
+    if (!email || !password || form.email.trim() !== email || form.password !== password) {
+      setMessage("The email or password does not match the saved registration.");
+      return;
+    }
+    setLoggedIn(true);
+  };
 
-    return (
-        <div>
-            {home ? (
-            <form onSubmit={handleLogin}>
-                <h3>Login</h3>
-                <div className="form-group">
-                    <label htmlFor="">Email</label>
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="enter email address" 
-                    onChange={(event)=> setEmaillog(event.target.value)} 
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="">Password</label>
-                    <input 
-                    type="password" 
-                    className="form-control" 
-                    placeholder="enter password"
-                    onChange={(event)=> setPasswordlog(event.target.value)} 
-                    />
-                </div>
-                <button type="submit" className="btn btn-dark btn-lg btn-block">Login</button>
-                {flag && (
-                    <Alert color="primary" variant="danger">
-                        please fill correct info
-                    </Alert>
-                )}
-            </form>
-            ):(
-                <Home />
-            )}
-        </div>
-    )
-}
+  if (loggedIn) {
+    return <Home onLogout={() => setLoggedIn(false)} />;
+  }
 
-export default Login
+  return (
+    <form className="auth-form" onSubmit={handleSubmit}>
+      <div className="form-heading"><span className="form-icon"><FaSignInAlt /></span><p className="eyebrow">Welcome back</p><h2>Sign in</h2><p>Use the credentials saved during registration.</p></div>
+      <label htmlFor="login-email"><FaEnvelope /> Email address</label>
+      <input id="login-email" name="email" type="email" value={form.email} placeholder="Enter your email" onChange={updateField} />
+      <label htmlFor="login-password"><FaLock /> Password</label>
+      <input id="login-password" name="password" type="password" value={form.password} placeholder="Enter your password" onChange={updateField} />
+      <button className="submit-button" type="submit">Sign in <FaArrowRight /></button>
+      {message && <p className="form-message error" role="alert">{message}</p>}
+      <button className="switch-button" type="button" onClick={onBack}><FaArrowLeft /> Need an account? Register</button>
+    </form>
+  );
+};
+
+export default Login;
