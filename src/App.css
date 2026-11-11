@@ -30,6 +30,8 @@ body { background: #f5f9fc; color: var(--ink); }
 .intro-text { color: var(--muted); font-size: 1.12rem; line-height: 1.8; margin: 25px 0 0; max-width: 560px; }
 .intro-points { border-top: 1px solid var(--line); display: grid; gap: 16px; margin-top: 38px; max-width: 500px; padding-top: 22px; }
 .intro-points span { align-items: center; color: var(--muted); display: flex; font-size: .92rem; gap: 10px; }
+.intro-points > a { align-items: center; color: var(--teal-dark); display: inline-flex; font-size: .92rem; font-weight: 700; gap: 10px; text-decoration: none; width: fit-content; }
+.intro-points > a:hover, .intro-points > a:focus-visible { text-decoration: underline; }
 .intro-points svg { color: var(--teal); }
 .auth-card { background: var(--white); border: 1px solid var(--line); border-radius: 23px; box-shadow: 0 20px 60px rgba(26,53,77,.13); padding: 32px; }
 .auth-form { display: grid; }
@@ -68,4 +70,9 @@ body { background: #f5f9fc; color: var(--ink); }
   .intro-text { font-size: 1rem; }
   .auth-card { padding: 23px 18px; }
   .site-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }

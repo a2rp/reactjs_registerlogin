@@ -1,20 +1,23 @@
 # React Register Login
 
-A responsive React registration and login demo that stores credentials in browser local storage and provides clear success and error states.
+A responsive front-end demo of registration and login interactions, with input values held in React memory only.
 
 ![React Register Login preview](screenshot.png)
 
 ## Features
 
 - Registration form with name, email, and password fields.
-- Local storage based login validation.
+- In-memory demo sign-in validation; data disappears when the page reloads.
 - Clear form error, success, and signed-in states.
 - Fixed responsive header with local branding.
 - Icon-only repository footer and accessible form labels.
+- No server requests and no credentials saved to browser storage.
 
 ## Tech stack
 
-React, Create React App, React Bootstrap, CSS, and React Icons.
+React, Create React App, CSS, and React Icons.
+
+This is a UI exercise, not an authentication system. Use fictional details only. Demo credentials exist only in page memory and are never sent to a server or written to local storage.
 
 ## Run locally
 

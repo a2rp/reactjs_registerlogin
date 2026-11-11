@@ -7,26 +7,27 @@ const App = () => (
   <div className="app">
     <header className="site-header">
       <a className="brand" href="#top" aria-label="Register login home">
-        <img src="/logo.png" alt="Ashish Ranjan logo" />
-        <span><small>REACT AUTH DEMO</small><strong>Register Login</strong></span>
+        <img src={process.env.PUBLIC_URL + "/logo.png"} alt="Ashish Ranjan logo" />
+        <span><small>REACT FORM DEMO</small><strong>Register Login</strong></span>
       </a>
       <div className="header-actions">
-        <span className="header-status"><FaShieldAlt /> Local storage demo</span>
+        <span className="header-status"><FaShieldAlt aria-hidden="true" /> In-memory demo</span>
         <a href="https://github.com/a2rp/reactjs_registerlogin" target="_blank" rel="noopener noreferrer" aria-label="Open repository">
-          <FaGithub />
+          <FaGithub aria-hidden="true" />
         </a>
       </div>
     </header>
 
     <main id="top" className="auth-layout">
       <section className="intro-panel">
-        <p className="eyebrow">A small React auth flow</p>
-        <h1>Register once. Sign in with confidence.</h1>
-        <p className="intro-text">A focused demonstration of a registration and login flow using React state and browser local storage.</p>
+        <p className="eyebrow">A small React form demo</p>
+        <h1>Explore a sign-in flow without saving real credentials.</h1>
+        <p className="intro-text">A front-end demonstration of registration and login interactions. Demo credentials stay in page memory; nothing is sent to a server or saved in browser storage.</p>
         <div className="intro-points">
-          <span><FaLock /> Credentials stay in this browser for the demo.</span>
-          <span><FaShieldAlt /> Clear feedback for each form state.</span>
-          <span><FiArrowUpRight /> Simple enough to extend into a real project.</span>
+          <span><FaLock aria-hidden="true" /> Credentials are cleared when this page reloads.</span>
+          <span><FaShieldAlt aria-hidden="true" /> No real authentication or server connection.</span>
+          <span><FiArrowUpRight aria-hidden="true" /> Use fictional details; never enter a real password.</span>
+          <a href="https://react.dev/learn" target="_blank" rel="noopener noreferrer">Learn React basics <FiArrowUpRight aria-hidden="true" /></a>
         </div>
       </section>
       <section className="auth-card" aria-label="Registration and login form">
@@ -35,7 +36,7 @@ const App = () => (
     </main>
 
     <footer className="site-footer">
-      <span>Copyright © {new Date().getFullYear()} <a href="https://www.ashishranjan.net/" target="_blank" rel="noopener noreferrer">Ashish Ranjan</a></span>
+      <span>Copyright &copy; {new Date().getFullYear()} <a href="https://www.ashishranjan.net/" target="_blank" rel="noopener noreferrer">Ashish Ranjan</a></span>
       <span>Frontend learning project</span>
     </footer>
   </div>
